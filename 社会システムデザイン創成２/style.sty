@@ -1,0 +1,78 @@
+%%% 紙面に関する設定(余白を上下左右25mmに設定)
+% 紙面の幅に関する設定
+% とりあえず紙面の幅全部を本文領域にする
+\setlength{\textwidth}{\paperwidth}
+% 左の余白を25mm(=1インチ-0.4mm)に設定
+\setlength{\oddsidemargin}{-0.4mm}
+\setlength{\evensidemargin}{\oddsidemargin}
+% 右の余白も25mmにする(=本文領域は25mm+25mm分狭くなる)
+\addtolength{\textwidth}{-50mm}
+%
+% 紙面の高さに関する設定
+% とりあえず紙面の高さ全部を本文領域にする
+\setlength{\textheight}{\paperheight}
+% 上の余白を25mm(=1インチ-0.4mm)にする
+\setlength{\topmargin}{-0.4mm}
+% ヘッダはなしにする
+\setlength{\headheight}{0pt}
+\setlength{\headsep}{0pt}
+% フッタは本文から10mm下につける
+\setlength{\footskip}{10mm}
+% 下の余白は10mmにする(=本文領域は25mm+10mm+15mm分狭くなる)
+\addtolength{\textheight}{-50mm}
+\newif\ifcheck
+\checkfalse
+\newif\iffinalcheck
+\finalcheckfalse
+
+%title page
+\renewcommand{\maketitle}{%
+    \begin{titlepage}%
+      \pagestyle{empty}
+      \setcounter{footnote}{0}%
+      \let\footnotesize\small
+      \let\footnoterule\relax
+      \let\footnote\thanks
+      
+    \null\vfil
+    \begin{center}%
+        {\LARGE\bf 社会システムデザイン創成２}%
+        \vskip 120\p@%
+    \end{center}%
+
+        \vskip 160\p@
+
+    \hspace{24mm}
+      \renewcommand{\arraystretch}{1.3}
+      \begin{tabular}{ll}
+        \hline
+        提出日 & {\large \@date} \\
+        学生証番号 & {\large \@authorid} \\
+        氏名&{\large \@author} \\
+      \end{tabular}
+      \renewcommand{\arraystretch}{1}
+       
+    \end{titlepage}%
+    
+    \setcounter{footnote}{0}%
+    \global\let\thanks\relax
+    \global\let\maketitle\relax
+    \global\let\@thanks\@empty
+    \global\let\@author\@empty
+    \global\let\@date\@empty
+    \global\let\@title\@empty
+    \global\let\title\relax
+    \global\let\author\relax
+    \global\let\date\relax
+    \global\let\and\relax
+    \global\let\@groupid\@empty % 追加
+    \global\let\groupid\relax % 追加
+    \global\let\@class\@empty % 追加
+    \global\let\class\relax % 追加
+    \global\let\@year\@empty % 追加
+    \global\let\year\relax % 追加
+    \global\let\@authorid\@empty % 追加
+    \global\let\authorid\relax % 追加
+}%
+
+\long\def\authorid#1{\long\gdef\@authorid{#1}}
