@@ -1,0 +1,23 @@
+\begin{thebibliography}{1}
+
+\bibitem{weight}
+@ousttrue.
+\newblock Blenderからunityのhumanoid互換でfbxをエクスポートする, 6 2020.
+\newblock \url{https://qiita.com/ousttrue/items/aead1c943855561b62e7}.
+
+\bibitem{porigon}
+Unity Technologies.
+\newblock Unityマニュアル　グラフィックパフォーマンスの最適化, 4 2017.
+\newblock \url{https://docs.unity3d.com/ja/2017.4/Manual/ModelingOptimizedCharacters.html}.
+
+\bibitem{unityUpdate}
+ホロモン.
+\newblock Unityでフレームレート(update間隔)を変更する, 1 2024.
+\newblock \url{https://bluebirdofoz.hatenablog.com/entry/2024/01/17/233132}.
+
+\bibitem{riging}
+神部まゆみ.
+\newblock blenderでボーンを組んで人間モデルを作り、unityでhumanoidリグをインポートした備忘録, 3 2026.
+\newblock \url{https://knb-mayumi.com/blender-humanoid-unity/}.
+
+\end{thebibliography}

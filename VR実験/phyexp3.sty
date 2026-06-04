@@ -1,0 +1,172 @@
+%%% 紙面に関する設定(余白を上下左右25mmに設定)
+% 紙面の幅に関する設定
+% とりあえず紙面の幅全部を本文領域にする
+\setlength{\textwidth}{\paperwidth}
+% 左の余白を25mm(=1インチ-0.4mm)に設定
+\setlength{\oddsidemargin}{-0.4mm}
+\setlength{\evensidemargin}{\oddsidemargin}
+% 右の余白も25mmにする(=本文領域は25mm+25mm分狭くなる)
+\addtolength{\textwidth}{-50mm}
+%
+% 紙面の高さに関する設定
+% とりあえず紙面の高さ全部を本文領域にする
+\setlength{\textheight}{\paperheight}
+% 上の余白を25mm(=1インチ-0.4mm)にする
+\setlength{\topmargin}{-0.4mm}
+% ヘッダはなしにする
+\setlength{\headheight}{0pt}
+\setlength{\headsep}{0pt}
+% フッタは本文から10mm下につける
+\setlength{\footskip}{10mm}
+% 下の余白は10mmにする(=本文領域は25mm+10mm+15mm分狭くなる)
+\addtolength{\textheight}{-50mm}
+\newif\ifcheck
+\checkfalse
+\newif\iffinalcheck
+\finalcheckfalse
+
+%title page
+\renewcommand{\maketitle}{%
+    \begin{titlepage}%
+      \pagestyle{empty}
+      \setcounter{footnote}{0}%
+      \let\footnotesize\small
+      \let\footnoterule\relax
+      \let\footnote\thanks
+
+\ifcheck
+\begin{table}[h]
+    \begin{tabular}{p{5.8em}p{6.5em}p{6.5em}p{6.5em}p{6.5em}}
+       & \textgt{3} & \textgt{2} & \textgt{1} & \textgt{0}\\    \hline
+    \textgt{フォーマット}   & & & フォーマットが正しい & フォーマットが正しくない\\    \hline
+    \textgt{キャプション}   & & & 全てのキャプションが正しい & キャプションが正しくない\\    \hline
+    \textgt{図表}  & & 図表が正しい & 一部の図表に誤りがある & 誤りがある \\    \hline
+    \textgt{実験対象}   & & シミュレーションを行う対象について詳しく記述されている & シミュレーション対象の記述がある & シミュレーション対象の記述がない・誤りがある\\    \hline
+    \textgt{実験方法} & 実験方法が論理的に書かれており、深く理解している & 実験方法を理解している & 実験方法が書かれている & 実験方法の記述に誤りがある・書かれていない \\
+        \hline
+    \textgt{結果・考察} & 結果や考察が論理的に書かれており、深く理解している & 結果や考察を理解して書いている & 結果・考察が書かれている & 結果や考察に誤りがある・書かれていない・理論値との比較がない\\
+    \hline
+    \end{tabular}
+\end{table}
+\newpage
+\fi
+
+\iffinalcheck
+\begin{table}[h]
+    \begin{tabular}{p{5.8em}p{6.5em}p{6.5em}p{6.5em}p{6.5em}}
+       & \textgt{3} & \textgt{2} & \textgt{1} & \textgt{0}\\    \hline
+    \textgt{フォーマット}   & & & フォーマットが正しい & フォーマットが正しくない\\    \hline
+    \textgt{図表・キャプション}   & & & 全ての図表・キャプションが正しい & 図表・キャプションが正しくない\\    \hline
+    \textgt{実験方法} & 実験方法が論理的に書かれており、深く理解している & 実験方法を理解している & 実験方法が書かれている & 実験方法の記述に誤りがある・書かれていない \\
+        \hline
+    \textgt{結果・考察} & 結果や考察が論理的に書かれており、深く理解している & 結果や考察を理解して書いている & 結果・考察が書かれている & 結果や考察に誤りがある・書かれていない・理論値との比較がない\\
+    \hline
+    \textgt{制作課題} &  & 自分の役割などが詳しく書かかれている & 自分の役割が書かかれている & 自分の役割について書かれていない\\
+    \hline
+    \end{tabular}
+\end{table}
+\newpage
+\fi
+
+      
+      \null\vfil
+      \vskip 30\p@
+      \begin{center}%
+        {\large \@year 年度\par}%
+        \vskip 20\p@
+        {\LARGE\bf 実世界情報実験3\\ バーチャルリアリティ\par}%
+        \vskip 30\p@%
+        担当教員 \ \ {\large \@supervisor} 
+      \end{center}%
+
+        \vskip 40\p@
+
+    \hspace{24mm}
+      \renewcommand{\arraystretch}{1.3}
+      \begin{tabular}{ll}
+        学生証番号 & {\large \@authorid} \\
+        氏名&{\large \@author} \\
+        メールアドレス&\href{mailto:\@mailaddr}{\@mailaddr} \\
+      \end{tabular}
+      \renewcommand{\arraystretch}{1}
+      \vskip 50mm
+
+      \renewcommand{\arraystretch}{1.3}
+      \begin{tabular}{lllll}
+        \@class クラス \@groupid 班 \\
+        \hline
+        作品タイトル & \multicolumn{4}{l}{\@projectname} \\
+        ディレクタ & {\@director} \\
+        プログラマ &{\@programmera} & {\@programmerb} & {\@programmerc} & {\@programmerd}\\
+        モデラ &{\@modelera} & {\@modelerb} & {\@modelerc} & {\@modelerd}\\
+      \end{tabular}
+      \renewcommand{\arraystretch}{1}
+      
+      \@thanks\vfil\null
+    \end{titlepage}%
+    
+    \setcounter{footnote}{0}%
+    \global\let\thanks\relax
+    \global\let\maketitle\relax
+    \global\let\@thanks\@empty
+    \global\let\@author\@empty
+    \global\let\@date\@empty
+    \global\let\@title\@empty
+    \global\let\title\relax
+    \global\let\author\relax
+    \global\let\date\relax
+    \global\let\and\relax
+    \global\let\@groupid\@empty % 追加
+    \global\let\groupid\relax % 追加
+    \global\let\@class\@empty % 追加
+    \global\let\class\relax % 追加
+    \global\let\@year\@empty % 追加
+    \global\let\year\relax % 追加
+    \global\let\@supervisor\@empty % 追加
+    \global\let\supervisor\relax % 追加
+    \global\let\@director\@empty % 追加
+    \global\let\director\relax % 追加
+    \global\let\@programmera\@empty % 追加
+    \global\let\programmera\relax % 追加
+    \global\let\@programmerb\@empty % 追加
+    \global\let\programmerb\relax % 追加
+    \global\let\@programmerc\@empty % 追加
+    \global\let\programmerc\relax % 追加
+    \global\let\@programmerd\@empty % 追加
+    \global\let\programmerd\relax % 追加
+    \global\let\@modelera\@empty % 追加
+    \global\let\modelera\relax % 追加
+    \global\let\@modelerb\@empty % 追加
+    \global\let\modelerb\relax % 追加
+    \global\let\@modelerc\@empty % 追加
+    \global\let\modelerc\relax % 追加
+    \global\let\@modelerd\@empty % 追加
+    \global\let\modelerd\relax % 追加
+    \global\let\@authorid\@empty % 追加
+    \global\let\authorid\relax % 追加
+    \global\let\@mailaddr\@empty % 追加
+    \global\let\mailaddr\relax % 追加
+    \global\let\@projectname\@empty % 追加
+    \global\let\projectname\relax % 追加
+}%
+\long\def\groupid#1{\long\gdef\@groupid{#1}}
+\long\def\class#1{\long\gdef\@class{#1}}
+\long\def\year#1{\long\gdef\@year{#1}}
+\long\def\supervisor#1{\long\gdef\@supervisor{#1}}
+
+\long\def\projectname#1{\long\gdef\@projectname{#1}}
+\long\def\director#1{\long\gdef\@director{#1}}
+\newcounter{nummodeler}
+\long\def\modelera#1{\long\gdef\@modelera{#1}}
+\long\def\modelerb#1{\long\gdef\@modelerb{#1}}
+\long\def\modelerc#1{\long\gdef\@modelerc{#1}}
+\long\def\modelerd#1{\long\gdef\@modelerd{#1}}
+\newcounter{numprogrammer}
+\long\def\programmera#1{\long\gdef\@programmera{#1}}
+\long\def\programmerb#1{\long\gdef\@programmerb{#1}}
+\long\def\programmerc#1{\long\gdef\@programmerc{#1}}
+\long\def\programmerd#1{\long\gdef\@programmerd{#1}}
+
+\long\def\authorid#1{\long\gdef\@authorid{#1}}
+\long\def\mailaddr#1{\long\gdef\@mailaddr{#1}}
+
