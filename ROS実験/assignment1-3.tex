@@ -98,6 +98,9 @@
     \item 「3」キー
 \end{itemize}
 アームを上下に動かすためのキーである．前述の「1」キーと同様に1回押すたびにアームが下がるか上がるかの動作を行う．
+
+%ここにアームの構造をかいて，それに関する考察を書く%
+
 \begin{itemize}
     \item 「5」キー
 \end{itemize}
@@ -143,13 +146,53 @@ command...
 \paragraph{回答欄：talker.pyのコードを貼り付ける}
 talker.pyのコードをリスト\ref{lst:talker.py}に示す。
 \begin{lstlisting}[caption=talker.py,label=lst:talker.py]
-...
+    #!/usr/bin/env python
+    # license removed for brevity
+    import rospy
+    from std_msgs.msg import String
+
+    def talker():
+        pub = rospy.Publisher('chatter', String, queue_size=10)
+        rospy.init_node('talker', anonymous=True)
+        r = rospy.Rate(10) # 10hz
+        while not rospy.is_shutdown():
+            str = "hello world %s"%rospy.get_time()
+            rospy.loginfo(str)
+            pub.publish(str)
+            r.sleep()
+
+    if __name__ == '__main__':
+        try:
+            talker()
+        except rospy.ROSInterruptException: pass
 \end{lstlisting}
 
 \paragraph{回答欄：listener.pyのコードを貼り付ける}
 listener.pyのコードをリスト\ref{lst:listener.py}に示す。
 \begin{lstlisting}[caption=listener.py,label=lst:listener.py]
-...
+    #!/usr/bin/env python
+    import rospy
+    from std_msgs.msg import String
+
+    def callback(data):
+        rospy.loginfo(rospy.get_caller_id()+"I heard %s",data.data)
+        
+    def listener():
+
+        # in ROS, nodes are unique named. If two nodes with the same
+        # node are launched, the previous one is kicked off. The 
+        # anonymous=True flag means that rospy will choose a unique
+        # name for our 'listener' node so that multiple listeners can
+        # run simultaenously.
+        rospy.init_node('listener', anonymous=True)
+
+        rospy.Subscriber("chatter", String, callback)
+
+        # spin() simply keeps python from exiting until this node is stopped
+        rospy.spin()
+            
+    if __name__ == '__main__':
+        listener()
 \end{lstlisting}
 
 \begin{itembox}[l]{(2)}
@@ -169,6 +212,19 @@ output...
 output...
 \end{lstlisting}
 \fi
+
+talker.pyとlistener.pyを実行した時の出力結果を，それぞれ図\ref{fig:talker},\ref{fig:listener}で示す．
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{images/}
+    \label{fig:talker}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{images/}
+    \label{fig:listener}
+\end{figure}
 
 \subsection{課題1-4}
 \begin{itembox}[l]{(1)}
