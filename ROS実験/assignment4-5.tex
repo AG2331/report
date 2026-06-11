@@ -1,0 +1,327 @@
+\documentclass[12pt, xelatex,ja=standard,jafont=noto]{bxjsarticle}
+
+\usepackage{phyexp3_robot}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{ascmac}
+\usepackage{listings}
+\renewcommand{\lstlistingname}{リスト}
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  xrightmargin=0em,
+  xleftmargin=3em,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1em,
+  lineskip=-0.5ex
+}
+\usepackage[
+ xetex,
+ setpagesize=false,%
+ bookmarks=true,%
+ bookmarksdepth=tocdepth,%
+ bookmarksnumbered=true,%
+ colorlinks=true,%
+ linkcolor=black,
+ pdftitle={},%
+ pdfsubject={},%
+ pdfauthor={},%
+ pdfkeywords={}%
+]{hyperref}
+\CJKspace
+
+\newif\ifdraft
+\draftfalse
+%----
+\year{2025} %実施年度
+\supervisor{島田 伸敬、松村 耕平、藤井 康之} % 担当教員
+
+
+\class{D1} % クラス（D1, D2）
+\date{\today}
+\reportnum{1}
+\assignmentnum{1, 2, 3} % 課題番号
+\mailaddr{is0791pi@ed.ritsumei.ac.jp} % メールアドレス
+\date{\today}
+%\drafttrue % 提出時には行の先頭に% をつけて%\drafttrueとしてください
+
+%----本文はここから---
+
+\begin{document}
+\maketitle
+\setcounter{section}{3}
+\section{課題4: ロボットの操作とROSの基礎}
+
+\subsection{課題4-1}
+\begin{itembox}[l]{SLAMによる地図作成(1)}
+Gazebo起動時に\verb|gazebo_manipulator_world.launch|を起動して、SLAMを実行し地図を作成しなさい。作成できた地図画像(\verb|~/exp3_ws/src/exp3/map|ディレクトリにある）をjpg形式に変換し添付せよ。変換にはコマンド\fbox{convert input.pgm output.jpg}を利用する。
+\end{itembox}
+\paragraph{回答欄：SLAMによって作成された地図}
+% 以下に本文を書く
+\ifdraft
+図\ref{fig:slam}は\verb|gazebo_manipulator_world.launch|を実行して得られた地図である…
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/blank.png}
+    \caption{SLAMによって作成された地図}
+    \label{fig:slam}
+\end{figure}
+\fi
+
+\begin{itembox}[l]{SLAMによる地図作成(2)}
+Gazebo用に他の環境シーンのデータを用意してある。launchファイルを変えると別の環境シーンがGazeboに読み込まれるので次のうちの１つを読み込んで、SLAMを起動して地図を作成しjpg形式に変換し添付せよ。なお、作成する地図について環境説明を記述すること。変換にはコマンド\fbox{convert input.pgm output.jpg}を利用する。
+\begin{itemize}
+    \item \verb|gazebo_manipulator_house.launch|
+    \item \verb|gazebo_manipulator_stage_4.launch|
+    \item \verb|gazebo_manipulator_willowgarage.launch| (この環境シーンは非常に広大なので、地図を生成するのは一部でよい)
+\end{itemize}
+\end{itembox}
+
+\paragraph{回答欄：SLAMによって作成された地図(2)}
+% 以下に本文を書く
+\ifdraft
+図\ref{fig:slam2}は\verb|gazebo_manipulator_house.launch|を実行して得られた地図である… \verb|gazebo_manipulator_house.launch|という環境では…
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/blank.png}
+    \caption{SLAMによって作成された地図}
+    \label{fig:slam2}
+\end{figure}
+\fi
+
+\subsection{課題4-2}
+\begin{itembox}[l]{コースの作成}
+教室内にスチロールブロックを使って作ったコースがいくつか設置してある。周りと相談して適宜変更して良いので、自分独自のコースアレンジをして、アレンジしたコースについて説明せよ。また、アレンジしたコースの写真を撮って添付せよ。
+\end{itembox}
+
+\paragraph{回答欄：コースの説明と写真}
+% 以下に本文を書く
+\ifdraft
+図\ref{fig:course_arranged}は、スチロールブロックを使ってアレンジしたコースの写真である。このコースでは...
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/blank.png}
+    \caption{作成したコース}
+    \label{fig:course_arranged}
+\end{figure}
+\fi
+
+\begin{itembox}[l]{作成したコースでのSLAM}
+アレンジしたコースにTurtlebot実機を置いて、上の要領でSLAMを実行しコースの環境地図を作成しなさい。作成できた地図画像(\verb|~/exp3_ws/src/exp3/map|ディレクトリにある）をjpg形式に変換し添付した上で説明せよ。変換にはコマンド\fbox{convert input.pgm output.jpg}を利用する。
+\end{itembox}
+
+\paragraph{回答欄：コースの地図とその説明}
+% 以下に本文を書く
+\ifdraft %以下は例
+図\ref{fig:slam3}に、作成したコースでSLAMを実行し、作成された地図を示す。Turtlebotには...
+% 以下に画像を貼る
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/blank.png}
+    \caption{作成したコースでのSLAMの結果}
+    \label{fig:slam3}
+\end{figure}
+\fi
+
+\newpage
+\section{課題5: ロボットの操作とROSの基礎}
+\subsection{課題5-1}
+課題4-1をやった後にすぐこの課題に取り組むと効率がよいので続けて取り組むことを勧める。
+
+\begin{itembox}[l]{Gazeboシミュレータの実行}
+Gazeboシミュレータ環境を起動し、SLAMの時に作った地図を指定してナビゲーションを実行しなさい。
+\end{itembox}
+
+\begin{itembox}[l]{スクリーンキャプチャ}
+最初に自己位置推定が不確かである状況を画面キャプチャして保存し，添付せよ。また、その状況について説明せよ。画面キャプチャはUbuntuでは\verb|gnome-screenshot|を使うことができる．例えば保存するファイルをinitial.pngにするときはコマンド\verb|gnome-screenshot --area -f initial.png|を実行して，マウスでキャプチャする範囲を指定する。
+\end{itembox}
+
+\paragraph{回答欄：初期の推定状況(Rvis画面)とその説明}
+% 以下に本文を書く
+\ifdraft %以下は例
+図\ref{fig:slam5-1}に、自己位置推定が不確かな状況下でのスクリーンキャプチャを示す。このときロボットのセンサーは...
+% 以下に画像を貼る
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/blank.png}
+    \caption{自己位置推定が不確かな状況下でのスクリーンキャプチャ}
+    \label{fig:slam5-1}
+\end{figure}
+\fi
+
+\begin{itembox}[l]{自己位置推定の更新}
+ゴールを指定してナビゲーションを開始すると、移動経路がRViz上に示されること、移動している間に次第に自己位置推定が確からしくなる様子を確かめよ。このときの途中経過を画面キャプチャあるいは動画にして保存し、添付せよ。動画の保存は\verb|simplescreenrecoder|を使うとできる（デスクトップ左端のアイコンにもある）。回答欄では、数枚の画像を添付しつつ、その様子を文章で逐次説明せよ。
+\end{itembox}
+
+\paragraph{回答欄：自己位置の推定が確からしくなる様子}
+% 以下に本文を書く
+\ifdraft %以下は例
+図\ref{fig:slam_51}から図\ref{fig:slam_53}に、自己位置推定が次第に確からしくなる様子を示す。図\ref{fig:slam_51}は初期位置で... 
+% 以下に画像を貼る
+\begin{figure}[h]
+\centering
+\begin{minipage}[b]{0.32\columnwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:slam_51}
+\end{minipage}
+\begin{minipage}[b]{0.32\columnwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:slam_52}
+\end{minipage}
+\begin{minipage}[b]{0.32\columnwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:slam_53}
+\end{minipage}
+\end{figure}
+\fi
+
+\begin{itembox}[l]{障害物の配置}
+Gazeboではシミュレーション空間中に新規のオブジェクトを置くことができる。レジュメの図にあるボタンを操作して空間に障害物を配置せよ。地図には存在しない障害物をどのようにして避けるか確認しなさい。障害物をおいたGazeboの環境シーンを撮影し添付せよ。またそれを避ける移動経路を生成して移動していく様子のRViz画面を保存し添付せよ。
+\end{itembox}
+
+\paragraph{回答欄：障害物を配置したGazeboの環境シーンと移動経路の生成と移動中の様子}
+\ifdraft %以下は例
+障害物を配置したGazeboの環境シーンを図\ref{fig:gazebo_4}に示す。その環境下において、障害物を避ける移動経路を生成して移動していく様子をRvizのスクリーンショットとして図\ref{fig:rviz_41}から\ref{fig:rviz_43}に示す…
+% 以下に画像を貼る
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/blank.png}
+    \caption{実機において自己位置推定が不確かな状況下でのスクリーンキャプチャ}
+    \label{fig:gazebo_4}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\begin{minipage}[b]{0.32\columnwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:rviz_41}
+\end{minipage}
+\begin{minipage}[b]{0.32\columnwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:rviz_42}
+\end{minipage}
+\begin{minipage}[b]{0.32\columnwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:rviz_43}
+\end{minipage}
+\end{figure}
+\fi
+
+\subsection{課題5-2 (実機編)}
+\begin{itembox}[l]{実機でのナビゲーション}
+実機を教室内のコースに置き、SLAMの時に作った地図を指定してナビゲーションを実行してみなさい。ただしコースがSLAMの時と大きく変わっているとうまく動かない可能性がある。
+\end{itembox}
+
+\begin{itembox}[l]{スクリーンキャプチャ}
+最初に自己位置推定が不確かである状況を画面キャプチャして保存し、添付せよ。画面キャプチャはUbuntuでは\verb|gnome-screenshot|を使うことができる
+\end{itembox}
+
+\paragraph{回答欄：初期の推定状況(Rvis画面)とその説明}
+% 以下に本文を書く
+\ifdraft %以下は例
+図\ref{fig:slam_realenv}に、自己位置推定が不確かな状況下でのスクリーンキャプチャを示す。このときロボットのセンサーは...
+% 以下に画像を貼る
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/blank.png}
+    \caption{実機において自己位置推定が不確かな状況下でのスクリーンキャプチャ}
+    \label{fig:slam_realenv}
+\end{figure}
+\fi
+
+\begin{itembox}[l]{スクリーンキャプチャ}
+ゴールを指定してナビゲーションを開始すると、移動経路がRViz上に示されること、移動している間に次第に自己位置推定が確からしくなる様子を確かめよ・このときの途中経過を画面キャプチャあるいは動画にして保存し、添付せよ。またそのときの様子を文章で説明せよ(数枚の画像列にして貼ると良い)。動画を保存するのは\verb|simplescreenrecoder|を使うとできる（デスクトップ左端のアイコンにもある）。
+\end{itembox}
+
+\paragraph{回答欄：実機において自己位置の推定が確からしくなる様子}
+% 以下に本文を書く
+\ifdraft %以下は例
+図\ref{fig:slam_realenv1}から図\ref{fig:slam_realenv3}に、自己位置推定が次第に確からしくなる様子を示す。図\ref{fig:slam_realenv1}は初期位置で... 
+% 以下に画像を貼る
+\begin{figure}[h]
+\centering
+\begin{minipage}[b]{0.32\columnwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:slam_realenv1}
+\end{minipage}
+\begin{minipage}[b]{0.32\columnwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:slam_realenv2}
+\end{minipage}
+\begin{minipage}[b]{0.32\columnwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:slam_realenv3}
+\end{minipage}
+\end{figure}
+\fi
+
+\begin{itembox}[l]{障害物を配置した実機環境および移動経路の生成と移動中の様子}
+実際にコース上に手や足、ブロックなどの地図には存在しない障害物を出現させ、ロボットがどのように避けるか確認しなさい。障害物のあるコースの様子を写真で撮影し添付せよ。またそれを避ける移動経路を生成して移動していく様子のRViz画面を保存し添付せよ。
+\end{itembox}
+
+\paragraph{回答欄：実機環境に障害物を配置した環境シーンおよび移動経路の生成と移動中の様子}
+% 以下に本文を書く
+\ifdraft %以下は例
+実機環境において障害物を配置した様子を図\ref{fig:gazebo_5}に示す。コース中にゴミ箱を配置した。その環境下において、障害物を避ける移動経路を生成して移動していく様子をRvizのスクリーンショットとして図\ref{fig:rviz_51}から\ref{fig:rviz_53}に示す…
+% 以下に画像を貼る
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/blank.png}
+    \caption{実機環境に障害物を配置した様子}
+    \label{fig:gazebo_5}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\begin{minipage}[b]{0.32\columnwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:rviz_51}
+\end{minipage}
+\begin{minipage}[b]{0.32\columnwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:rviz_52}
+\end{minipage}
+\begin{minipage}[b]{0.32\columnwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:rviz_53}
+\end{minipage}
+\end{figure}
+\fi
+\end{document}
+

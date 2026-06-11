@@ -1,0 +1,784 @@
+\documentclass[12pt, xelatex,ja=standard,jafont=noto]{bxjsarticle}
+
+\usepackage{phyexp3_robot}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{ascmac}
+\usepackage{listings}
+\renewcommand{\lstlistingname}{リスト}
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  xrightmargin=0em,
+  xleftmargin=3em,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1em,
+  lineskip=-0.5ex
+}
+\usepackage[
+ xetex,
+ setpagesize=false,%
+ bookmarks=true,%
+ bookmarksdepth=tocdepth,%
+ bookmarksnumbered=true,%
+ colorlinks=true,%
+ linkcolor=black,
+ pdftitle={},%
+ pdfsubject={},%
+ pdfauthor={},%
+ pdfkeywords={}%
+]{hyperref}
+\CJKspace
+
+\newif\ifdraft
+\draftfalse
+%----
+\year{2025} %実施年度
+\supervisor{島田 伸敬、松村 耕平、藤井 康之} % 担当教員
+
+
+\class{D1} % クラス（D1, D2）
+\date{\today}
+\reportnum{1}
+\assignmentnum{1, 2, 3} % 課題番号
+\mailaddr{is0791pi@ed.ritsumei.ac.jp} % メールアドレス
+\date{\today}
+%\drafttrue % 提出時には行の先頭に% をつけて%\drafttrueとしてください
+
+%----本文はここから---
+
+\begin{document}
+\maketitle
+\setcounter{section}{5}
+\section{課題6: Pythonプログラムを用いた移動指示とマニピュレータ操作}
+
+\subsection{課題6-1} %Gazeboと実機で実施，レポートにはGazeboでの結果を記述する
+\begin{itembox}[l]{(1)}
+\verb|rostopic echo /clicked_point|の代わりに\\\verb|rosrun exp3 print_clicked_point.py|を実行し、topicの情報が表示されることを確認せよ。また、これを複数の位置について行い、Rviz上でのX軸、Y軸の向きを確認せよ。
+\end{itembox}
+\begin{itembox}[l]{(2)}
+teleop などを使ってロボットを初期位置からある程度離れた位置に移動した後、RVizの Publish Point の機能でロボットの中心位置を指定して，その座標を取得し記載しなさい。RVizの画面をキャプチャしてどの位置の座標を取得したのかわかるように記載すること。
+
+回答欄では取得した座標を複数添付する。このとき、それぞれRVizの画面を示してどこを指定したのかわかるようにする。また取得座標1と2がそれぞれわかるように記述する。
+\end{itembox}
+
+\paragraph{回答欄：取得した座標1, 2}
+% 以下に本文を書く
+\ifdraft
+図\ref{fig:rviz_61}はPublish Pointの機能を利用してある地点で座標を取得したときのRVizの画面である...
+
+\begin{figure}[h]
+\centering
+\begin{minipage}[b]{0.49\columnwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:rviz_61}
+\end{minipage}
+\begin{minipage}[b]{0.49\columnwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:rviz_62}
+\end{minipage}
+\end{figure}
+\fi
+
+\begin{itembox}[l]{(3)}
+RViz上の表示を以下のように調整した後の状態でRVizのウィンドウをキャプチャしレポートに貼付せよ。
+\begin{itemize}
+    \item map frame における原点(X,Y) = (0,0)が地図表示パネルの中心に位置するようにする．
+    \item map frame におけるX軸が画面の水平方向であり，X軸の正の方向が右向きとなり，Y軸の正の方向が垂直上向きとなるように地図を回転させる．
+    \item ロボットがパネル内に写るよう地図を拡大縮小させる．
+    \item 地図表示パネル内のグリッド線はデフォルトの通り1m間隔で表示させたままとする．
+    \item RVizの左側に表示される表示内容選択パネル( Displays )を畳んで地図を見やすくしておく．
+\end{itemize}
+\end{itembox}
+
+\paragraph{回答欄：RVizのウィンドウ}
+% 以下に本文を書く
+\ifdraft
+図\ref{fig:rviz_63}は以下の条件を満たすようにRVizのウィンドウをキャプチャしたものである…
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:rviz_63}
+\end{figure}
+\fi
+
+\subsection{課題6-2} %Gazeboもしくは実機で実施，両方で実施した場合には両方の結果を記載する．
+\begin{itembox}[l]{(1)}
+地図上でロボットが到達可能な移動先を設定し，目標位置の map frameに おける座標をレポートで報告してください．
+\end{itembox}
+
+\paragraph{回答欄：座標}
+% 以下に本文を書く
+\ifdraft
+座標を書く。
+\fi
+
+\begin{itembox}[l]{(2)}
+変数\verb|point_xyz| に目標位置の map frameにおける座標が代入されるように \verb|go_to_fixed_point.py| を修正し、修正後のプログラムをレポートに貼り付けよ。
+\end{itembox}
+
+\paragraph{回答欄：修正後のプログラム}
+% 以下に本文を書く
+\ifdraft
+\verb|go_to_fixed_point.py|のコードをリスト\ref{lst:fixedpointpy}に示す。
+\begin{lstlisting}[caption=コード,label=lst:fixedpointpy]
+...
+\end{lstlisting}
+\fi
+
+\begin{itembox}[l]{(3)}
+プログラム動作中に \verb|rqt_graph| を実行しその画像をレポートに貼り付けよ。加えて、作成したプログラム実行中のノード間の情報のやりとりについて貼り付けた画像を参照しながら説明する文章を作成し、レポートで報告せよ。ROSのaction機構による情報の送受信が \verb|rqt_graph| の画面上でどのように表示されるかについては \verb|rqt_graph|とactionについてのヒントを参照せよ．
+\end{itembox}
+\paragraph{回答欄：rqt graphのスクリーンショット}
+% 以下に本文を書く
+図\ref{fig:rqtgraph6}はプログラム動作中に \verb|rqt_graph| を実行した際のスクリーンショットである。このときノード...
+\ifdraft
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:rqtgraph6}
+\end{figure}
+\fi
+
+\begin{itembox}[l]{(4)}
+移動前の状況として、RViz上の表示を以下のように調整した後の状態でRVizのウィンドウをキャプチャしレポートに貼り付けよ。
+\begin{itemize}
+    \item map frame における原点(X,Y) = (0,0)が 地図表示パネルの中心に位置するようにする．
+    \item map frame におけるX軸が画面の水平方向であり，X軸の正の方向が 右向きとなり、Y軸の正の方向が垂直上向きとなるように地図を回転させる．
+    \item ロボットと目標位置の両方 がパネル内に写るよう地図を拡大縮小させる．
+    \item 地図表示パネル内のグリッド線はデフォルトの通り1m間隔で表示させたままとする．
+    \item RVizの左側に表示される表示内容選択パネル( Displays )を畳んで 地図を見やすくしておく．
+    \item 実機で実験を行った場合は周囲状況の写真も貼り付ける．
+\end{itemize}
+\end{itembox}
+
+\paragraph{回答欄：RVizのウィンドウ}
+% 以下に本文を書く
+\ifdraft
+図\ref{fig:rviz_64}は以下の条件を満たすようにRVizのウィンドウをキャプチャしたものである…
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:rviz_64}
+\end{figure}
+\fi
+
+\begin{itembox}[l]{(5)}
+修正した\verb|go_to_fixed_point.py|を下記のコマンドで実行し、ロボットが指定した位置に移動することを確認せよ
+
+\verb|> rosrun exp3 go_to_fixed_point.py|
+\end{itembox}
+\begin{itembox}[l]{(6)}
+移動後の状況として，RVizのウィンドウをキャプチャしレポートに貼り付けよ。ただし、移動前の状況と比較できるようRViz内の地図表示パネルの表示範囲や角度が移動前のものと変わらないようにせよ。実機で実験を行った場合は移動後の周囲状況の写真も貼り付けよ。
+\end{itembox}
+
+\paragraph{回答欄：RVizのウィンドウキャプチャ}
+% 以下に本文を書く
+\ifdraft
+図\ref{fig:rviz_65}は\verb|rosrun exp3 go_to_fixed_point.py|を実行後のRVizのウィンドウをキャプチャしたものである。ここでは実機で実験を実施したため、この時の実機の様子を図\ref{fig:realenv_65}に示す…
+\begin{figure}[h]
+\centering
+\begin{minipage}[b]{0.49\columnwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:rviz_65}
+\end{minipage}
+\begin{minipage}[b]{0.49\columnwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:realenv_65}
+\end{minipage}
+\end{figure}
+\fi
+
+\subsection{課題6-3}
+\begin{itembox}[l]{(1)}
+\verb|~/exp3_ws/src/exp3/scripts/|のディレクトリにあらかじめ\\
+\verb|go_to_clicked_point.py|という名前でプログラムの雛形を用意してある。これを修正してRVizの Publish Point ボタンの機能で位置を指定するとロボットがその位置に移動するプログラムを作成しレポートに貼り付けよ。
+\end{itembox}
+
+\paragraph{回答欄：プログラム}
+% 以下に本文を書く
+\ifdraft
+\verb|go_to_clicked_point.py|のコードをリスト\ref{lst:clickedpointpy}に示す。
+\begin{lstlisting}[caption=コード,label=lst:clickedpointpy]
+...
+\end{lstlisting}
+\fi
+
+\begin{itembox}[l]{(2)}
+指定する位置を変えてプログラムを実行することを複数回行い、指定した位置に移動できることを確認せよ。
+\end{itembox}
+\begin{itembox}[l]{(3)}
+プログラム動作中に \verb|rqt_graph| を実行し，その画像をレポートに貼り付けよ。加えて、作成したプログラム実行中のノード間の情報のやりとりについて貼り付けた画像を参照しながら説明する文章を作成しレポートで報告せよ。ROSのaction機構による情報の送受信が \verb|rqt_graph| の画面上でどのように表示されるかについては \verb|rqt_graph| とactionについてのヒントを参照せよ。
+\end{itembox}
+
+\paragraph{回答欄：rqt graphのスクリーンショット}
+% グラフ画像を参照しながら詳しく説明した文章を貼り付ける．グラフからわかること、インターネットを検索するとわかること、ROSのリファレンスサイトを見るとわかること、などがあるので、できるだけ多くの情報をつかってわかることを説明すること
+図\ref{fig:rqtgraph7}はプログラム動作中に \verb|rqt_graph| を実行した際のスクリーンショットである。このときノードXXXは...
+\ifdraft
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:rqtgraph7}
+\end{figure}
+\fi
+
+\begin{itembox}[l]{(4)}
+移動前の状況として、RViz上の表示を以下のように調整した後の状態でRVizのウィンドウをキャプチャしレポートに貼り付けよ。なお、実機で実験を行った場合は周囲状況の写真も貼り付けよ。
+\begin{itemize}
+    \item map frame における原点(X,Y) = (0,0)が 地図表示パネルの中心に位置するようにする．
+    \item map frame におけるX軸が画面の水平方向であり，X軸の正の方向が 右向きとなり、Y軸の正の方向が垂直上向きとなるように地図を回転させる．
+    \item ロボットと目標位置の両方 がパネル内に写るよう地図を拡大縮小させる．
+    \item 地図表示パネル内のグリッド線はデフォルトの通り1m間隔で表示させたままとする．
+    \item RVizの左側に表示される表示内容選択パネル( Displays )を畳んで 地図を見やすくしておく．
+\end{itemize}
+\end{itembox}
+
+\paragraph{回答欄：RVizのウィンドウキャプチャ}
+% 以下に本文を書く
+\ifdraft
+図\ref{fig:rviz_66}はRVizのウィンドウをキャプチャしたものである。ここでは実機で実験を実施したため、この時の実機の様子を図\ref{fig:realenv_66}に示す…
+\begin{figure}[h]
+\centering
+\begin{minipage}[b]{0.49\columnwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:rviz_66}
+\end{minipage}
+\begin{minipage}[b]{0.49\columnwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:realenv_66}
+\end{minipage}
+\end{figure}
+\fi
+
+\begin{itembox}[l]{(5)}
+移動前と同様の条件で移動後についてもRVizの画面をキャプチャしレポートに貼り付けよ。実機で実験を行った場合は周囲状況の写真も貼り付けよ。
+\end{itembox}
+
+\paragraph{回答欄：移動後のRVizのウィンドウキャプチャ}
+% 以下に本文を書く
+\ifdraft
+図\ref{fig:rviz_67}は移動後のRVizのウィンドウをキャプチャしたものである。ここでは実機で実験を実施したため、この時の実機の様子を図\ref{fig:realenv_67}に示す…
+\begin{figure}[h]
+\centering
+\begin{minipage}[b]{0.49\columnwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:rviz_67}
+\end{minipage}
+\begin{minipage}[b]{0.49\columnwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:realenv_67}
+\end{minipage}
+\end{figure}
+\fi
+
+\begin{itembox}[l]{(6)}
+ロボットが意図通りに動いたかを考察せよ。観察された事実として何が起きたか、その背後でROSシステム上にてどういう動作がおきたと推察されるのか、など、順を追って詳しく考察する。
+\begin{itemize}
+    \item 意図通りに動いたとしたら，どのような状況からそう判断したか画像を参照しながら説明せよ．
+    \item 意図通りに動かなかったとしたら，その理由を説明し改善方法を考えて挙げよ．
+    \item どちらの場合でもその他に気付いた点があれば文章で報告せよ．
+\end{itemize}
+\end{itembox}
+
+\paragraph{回答欄：考察}
+% 以下に本文を書く
+\ifdraft
+ロボットが意図通りに動いたかどうかを考察するため、まずは意図を明確化する。ここでの意図は「ロボットがRVizで指定したポイントに移動する」ことである。
+これを確認するため、Xを実行した際のロボットの挙動を観察した...
+図\ref{fig:discussion}はXYZを実行したときにABCを図示したものである…
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:discussion}
+\end{figure}
+\fi
+
+\subsection{課題6-4}
+\begin{itembox}[l]{(1)}
+\verb|move_arm.py| であらかじめ定義されている関数を参考にして 「アームをある軌道で動かし最後には初期状態に戻すような関数」を作成し、レポートに貼り付けよ。ただし，アームの軌道は少なくとも3つの中継点を通るようなもので、 \verb|rotate_arm()|とは異なるものせよ。動作の途中でグリッパの開閉を含んでもよい。
+\end{itembox}
+
+\paragraph{回答欄：プログラム}
+% 以下に本文を書く
+\ifdraft
+アームをある軌道で動かし最後には初期状態に戻すような関数をリスト\ref{lst:movearmpy}に示す…
+\begin{lstlisting}[caption=コード,label=lst:movearmpy]
+...
+\end{lstlisting}
+\fi
+
+\begin{itembox}[l]{(2)}
+作成したプログラムによって実現されるアームの動作を説明する文章を作成しレポートで報告せよ。
+\end{itembox}
+\paragraph{回答欄：説明}
+% 以下に本文を書く
+\ifdraft
+作成したプログラムはアームを…のような軌道で動かすものである。このためにまず…
+\fi
+
+\begin{itembox}[l]{(3)}
+プログラム動作中に \verb|rqt_graph| を実行し、その画像をレポートに貼り付けよ。 加えて、作成したプログラム実行中のノード間の情報のやりとりについて貼り付けた画像を参照しながら説明する文章を作成し、レポートで報告せよ。ROSのaction機構による情報の送受信が \verb|rqt_graph| の画面上でどのように表示されるかについては \verb|rqt_graph| とactionについてのヒントを参照せよ。
+\end{itembox}
+
+\paragraph{回答欄：rqt graphのスクリーンショット}
+% トピック等の通信がどのノードの間でどういうやりとりとして行われるのか考察して、詳しい説明文章を記載する．
+図\ref{fig:rqtgraph8}はプログラム動作中に \verb|rqt_graph| を実行した際のスクリーンショットである。このときトピックXは...
+\ifdraft
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:rqtgraph8}
+\end{figure}
+\fi
+
+\begin{itembox}[l]{(4)}
+実際に動作させてその様子を実機写真やGazabo画像としてレポートに貼り付けよ。アーム動作の流れが分かりやすいよう特徴的なタイミングを選び、複数の画像を時系列順に貼り付けよ。
+\end{itembox}
+
+\paragraph{回答欄：動作の時系列画像（複数枚必須）}
+% 以下に本文を書く
+アームの動作を図\ref{fig:armmovement1}から図\ref{fig:armmovement４}に示す。ここで…
+\ifdraft
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:armmovement1}
+    \includegraphics[width=0.4\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:armmovement2}
+    \includegraphics[width=0.4\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:armmovement3}
+    \includegraphics[width=0.4\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:armmovement4}
+\end{figure}
+\fi
+
+\begin{itembox}[l]{(5)}
+ロボットが意図通りに動いたかを考察せよ。
+\begin{itemize}
+    \item 意図通りに動いたとしたら，どのような状況からそう判断したか画像を参照しながら説明せよ．
+    \item 意図通りに動かなかったとしたら，その理由を説明し改善方法を考えて挙げよ．
+    \item どちらの場合でもその他に気付いた点があれば文章で報告せよ．
+\end{itemize}
+\end{itembox}
+
+\paragraph{回答欄：考察}
+% 以下に本文を書く
+\ifdraft
+ロボットが意図通りに動いたかどうかを考察するため、まずは意図を明確化する。ここでの意図は「ロボットのアームが特定の軌道で動き、元の座標に戻る」ことである。
+これを確認するため、Xを実行した際のロボットの挙動を観察した...
+図\ref{fig:discussion2}はXYZを実行したときにABCを図示したものである…
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/blank.png}
+    \caption{}
+    \label{fig:discussion2}
+\end{figure}
+\fi
+
+\subsection{課題6-5}
+%Gazeboもしくは実機で実施，両方で実施した場合には両方の結果を記載する．
+\begin{itembox}[l]{(1)}
+「RVizで棒の立っている位置を指定するとその棒の近くに移動し、アームを伸ばしてから回転させて棒を倒すプログラム」を作成しレポートに貼り付けよ。
+\end{itembox}
+
+\paragraph{回答欄：プログラム}
+% 以下に本文を書く
+\ifdraft
+RVizで棒の立っている位置を指定するとその棒の近くに移動し，アームを伸ばしてから回転させて棒を倒すプログラムをリスト\ref{lst:stickmove}に示す…
+\begin{lstlisting}[caption=コード,label=lst:stickmove]
+...
+\end{lstlisting}
+\fi
+
+\begin{itembox}[l]{(2)}
+プログラム作成時のアイデアや目標(棒の近くに移動する，アーム動作で棒を倒す)を達成するための作戦，アルゴリズムについての 説明をレポートで報告せよ．アルゴリズムが前提としている仮定(ロボットの初期位置から棒の位置までは一直線で移動できるなど)があればそれを明示すること．フローチャートなどの画像を使うと伝わりやすい．レポートには適宜図などの説明資料を挿入し，それを参照しながら説明する文章を作成すること．
+\end{itembox}
+
+\paragraph{回答欄：アイデア，作戦についての説明}
+% 以下に本文を書く
+\ifdraft
+アイデアや作戦について図や画像を交えながら詳しく説明する．大きな加点対象
+\fi
+
+\begin{itembox}[l]{(3)}
+作成したプログラムを実行し、その様子を報告せよ。なお、レポートには下記の情報を含めること。
+\begin{itemize}
+    \item 様子を説明する文章 (添付画像を適宜参照すると伝わりやすいです．説明しやすい状況となるよう添付する画像を選ぶと より伝わりやすいレポートとなります．)
+    \item 動作のRVizの画像と動作前の状況の画像 (シミュレーションならGazeboの画像、実機実験なら写真)を時系列で示す．
+    \item 意図通りに動作しなかった場合は，その状況が分かりやすい RVizの画像と周囲状況の画像 (シミュレーションならGazeboの画像，実機実験なら写真)
+\end{itemize}
+\end{itembox}
+
+\paragraph{回答欄：動作時の様子の説明}
+% 以下に本文を書く
+\ifdraft
+動作時の様子を説明する文章を記載する．図、写真などをふんだんにとりいれること。
+\fi
+
+\paragraph{回答欄：RVizの時系列画像(意図通りに動作しなかった場合も含む)}
+% 以下に本文を書く
+\ifdraft
+RVizの時系列画像を貼り付ける
+\fi
+
+\paragraph{回答欄：周辺状況の時系列画像(意図通りに動作しなかった場合も含む)}
+% 以下に本文を書く
+\ifdraft
+周辺状況の時系列画像を貼り付ける
+\fi
+
+\paragraph{回答欄：追加の説明用画像}
+% 以下に本文を書く
+\ifdraft
+説明に必要な追加画像があれば貼り付ける
+\fi
+
+\begin{itembox}[l]{(4)}
+動作結果について考察を行いレポートで報告せよ。読者に伝わりやすいよう、添付画像を適宜参照すること。
+\begin{itemize}
+    \item 意図通りに動いたとしたら，動作のどの部分からそう判断したかを文章で報告してください．
+    \item 意図通りに動かなかったとしてもその理由を考えて，理由や改善するための案などを文章で報告してください．
+    \item どちらの場合でもその他に気付いた点があれば文章で報告してください．
+\end{itemize}
+\end{itembox}
+
+\paragraph{回答欄：考察}
+% 以下に本文を書く
+\ifdraft
+詳しい考察を記載する。
+\fi
+
+\subsection{課題6-6}
+%Gazeboもしくは実機で実施，両方で実施した場合には両方の結果を記載する．
+\begin{itembox}[l]{(1)}
+課題6-5で作成したプログラムをもとに，「RVizで位置を指定するとその位置の棒を倒す」という一連の動作を 繰り返し行えるプログラムを作成しレポートに貼り付けよ。
+\end{itembox}
+
+\paragraph{回答欄：プログラム}
+% 以下に本文を書く
+\ifdraft
+RVizで棒の立っている位置を指定するとその棒の近くに移動し，アームを伸ばしてから回転させて棒を倒す動作を繰り返し行うプログラムをリスト\ref{lst:stickmoverepeat}に示す…
+\begin{lstlisting}[caption=コード,label=lst:stickmoverepeat]
+...
+\end{lstlisting}
+\fi
+
+\begin{itembox}[l]{(2)}
+プログラム作成時のアイデアや目標(棒の近くに移動する，アーム動作で棒を倒す)を達成するための作戦，アルゴリズムについての説明をレポートで報告せよ。アルゴリズムが前提としている仮定(ロボットの初期位置から棒の位置までは一直線で移動できるなど)があればそれを明示すること。フローチャートなどの画像を使うと伝わりやすい。レポートには適宜図などの説明資料を挿入し、それを参照しながら説明する文章を作成すること。
+\end{itembox}
+
+\paragraph{回答欄：アイデア，作戦についての説明}
+% 以下に本文を書く
+\ifdraft
+アイデアや作戦について図や画像を交えながら詳しく説明する．大きな加点対象
+\fi
+
+\begin{itembox}[l]{(3)}
+作成したプログラムを実行し、その様子を報告せよ。なお、レポートには下記の情報を含めること。
+\begin{itemize}
+    \item 様子を説明する文章 (添付画像を適宜参照すると伝わりやすいです．説明しやすい状況となるよう添付する画像を選ぶと より伝わりやすいレポートとなります．)
+    \item 動作のRVizの画像と動作前の状況の画像 (シミュレーションならGazeboの画像、実機実験なら写真)を時系列で示す．
+    \item 意図通りに動作しなかった場合は，その状況が分かりやすい RVizの画像と周囲状況の画像 (シミュレーションならGazeboの画像，実機実験なら写真)
+\end{itemize}
+\end{itembox}
+
+\paragraph{回答欄：動作時の様子の説明}
+% 以下に本文を書く
+\ifdraft
+動作時の様子を説明する文章を記載する．図、写真などをふんだんにとりいれること。
+\fi
+
+\paragraph{回答欄：RVizの時系列画像(意図通りに動作しなかった場合も含む)}
+% 以下に本文を書く
+\ifdraft
+RVizの時系列画像を貼り付ける
+\fi
+
+\paragraph{回答欄：周辺状況の時系列画像(意図通りに動作しなかった場合も含む)}
+% 以下に本文を書く
+\ifdraft
+周辺状況の時系列画像を貼り付ける
+\fi
+
+\paragraph{回答欄：追加の説明用画像}
+% 以下に本文を書く
+\ifdraft
+説明に必要な追加画像があれば貼り付ける
+\fi
+
+\begin{itembox}[l]{(4)}
+動作結果について考察を行いレポートで報告せよ。読者に伝わりやすいよう、添付画像を適宜参照すること。
+\begin{itemize}
+    \item 意図通りに動いたとしたら，動作のどの部分からそう判断したかを文章で報告してください．
+    \item 意図通りに動かなかったとしてもその理由を考えて，理由や改善するための案などを文章で報告してください．
+    \item どちらの場合でもその他に気付いた点があれば文章で報告してください．
+\end{itemize}
+\end{itembox}
+
+\paragraph{回答欄：考察}
+% 以下に本文を書く
+\ifdraft
+詳しい考察を記載する。
+\fi
+
+\subsection{課題6-EX1}
+%Gazeboもしくは実機で実施，両方で実施した場合には両方の結果を記載する．
+\begin{itembox}[l]{(1)}
+センサ情報から円筒状の物体を検知しその近くに移動するプログラムを作成しレポートに貼り付けよ。
+\end{itembox}
+
+\paragraph{回答欄：プログラム}
+% 以下に本文を書く
+\ifdraft
+センサ情報から円筒状の物体を検知しその近くに移動するプログラムをリスト\ref{lst:movetocylinder}に示す…
+\begin{lstlisting}[caption=コード,label=lst:movetocylinder]
+...
+\end{lstlisting}
+\fi
+
+\begin{itembox}[l]{(2)}
+プログラム作成時のアイデアや目標(円筒状の物体を検知する、物体の近くに移動する)を達成するための作戦，アルゴリズムについての説明をレポートで報告せよ。アルゴリズムが前提としている仮定(ロボットの初期位置から円筒状の物体の位置までは一直線で移動できるなど)があればそれを明示すること。フローチャートなどの画像を使うと伝わりやすい。レポートには適宜図などの説明資料を挿入し、それを参照しながら説明する文章を作成すること。
+\end{itembox}
+
+\paragraph{回答欄：アイデア，作戦についての説明}
+% 以下に本文を書く
+\ifdraft
+アイデアや作戦について図や画像を交えながら詳しく説明する．
+\fi
+
+\begin{itembox}[l]{(3)}
+作成したプログラムを実行し、その様子を報告せよ。なお、レポートには下記の情報を含めること。
+\begin{itemize}
+    \item 様子を説明する文章 (添付画像を適宜参照すると伝わりやすいです．説明しやすい状況となるよう添付する画像を選ぶと より伝わりやすいレポートとなります．)
+    \item 動作のRVizの画像と動作前の状況の画像 (シミュレーションならGazeboの画像、実機実験なら写真)を時系列で示す．
+    \item 意図通りに動作しなかった場合は，その状況が分かりやすい RVizの画像と周囲状況の画像 (シミュレーションならGazeboの画像，実機実験なら写真)
+\end{itemize}
+\end{itembox}
+
+\paragraph{回答欄：動作時の様子の説明}
+% 以下に本文を書く
+\ifdraft
+動作時の様子を説明する文章を記載する．
+\fi
+
+\paragraph{回答欄：RVizの時系列画像(意図通りに動作しなかった場合も含む)}
+% 以下に本文を書く
+\ifdraft
+RVizの時系列画像を貼り付ける
+\fi
+
+\paragraph{回答欄：周辺状況の時系列画像(意図通りに動作しなかった場合も含む)}
+% 以下に本文を書く
+\ifdraft
+周辺状況の時系列画像を貼り付ける
+\fi
+
+\paragraph{回答欄：追加の説明用画像}
+% 以下に本文を書く
+\ifdraft
+説明に必要な追加画像があれば貼り付ける
+\fi
+
+\begin{itembox}[l]{(4)}
+動作結果について考察を行いレポートで報告せよ。読者に伝わりやすいよう、添付画像を適宜参照すること。
+\begin{itemize}
+    \item 意図通りに動いたとしたら，動作のどの部分からそう判断したかを文章で報告してください．
+    \item 意図通りに動かなかったとしてもその理由を考えて，理由や改善するための案などを文章で報告してください．
+    \item どちらの場合でもその他に気付いた点があれば文章で報告してください．
+\end{itemize}
+\end{itembox}
+
+\paragraph{回答欄：考察}
+% 以下に本文を書く
+\ifdraft
+詳しい考察を記載する。
+\fi
+
+
+\subsection{課題6-EX2}
+%Gazeboもしくは実機で実施，両方で実施した場合には両方の結果を記載する．
+\begin{itembox}[l]{(1)}
+センサ情報から円筒状の物体を検知しその近くに移動した後にアームを動作させて円筒状の物体を倒すプログラムを作成しレポートに貼り付けよ。
+\end{itembox}
+
+\paragraph{回答欄：プログラム}
+% 以下に本文を書く
+\ifdraft
+センサ情報から円筒状の物体を検知しその近くに移動し、その物体を倒すプログラムをリスト\ref{lst:movetocylinder2}に示す…
+\begin{lstlisting}[caption=コード,label=lst:movetocylinder2]
+...
+\end{lstlisting}
+\fi
+
+\begin{itembox}[l]{(2)}
+プログラム作成時のアイデアや目標(円筒状の物体を検知する、物体の近くに移動する、物体を倒す)を達成するための作戦，アルゴリズムについての説明をレポートで報告せよ。アルゴリズムが前提としている仮定(ロボットの初期位置から円筒状の物体の位置までは一直線で移動できるなど)があればそれを明示すること。フローチャートなどの画像を使うと伝わりやすい。レポートには適宜図などの説明資料を挿入し、それを参照しながら説明する文章を作成すること。
+\end{itembox}
+
+\paragraph{回答欄：アイデア，作戦についての説明}
+% 以下に本文を書く
+\ifdraft
+アイデアや作戦について図や画像を交えながら詳しく説明する．
+\fi
+
+\begin{itembox}[l]{(3)}
+作成したプログラムを実行し、その様子を報告せよ。なお、レポートには下記の情報を含めること。
+\begin{itemize}
+    \item 様子を説明する文章 (添付画像を適宜参照すると伝わりやすいです．説明しやすい状況となるよう添付する画像を選ぶと より伝わりやすいレポートとなります．)
+    \item 動作のRVizの画像と動作前の状況の画像 (シミュレーションならGazeboの画像、実機実験なら写真)を時系列で示す．
+    \item 意図通りに動作しなかった場合は，その状況が分かりやすい RVizの画像と周囲状況の画像 (シミュレーションならGazeboの画像，実機実験なら写真)
+\end{itemize}
+\end{itembox}
+
+\paragraph{回答欄：動作時の様子の説明}
+% 以下に本文を書く
+\ifdraft
+動作時の様子を説明する文章を記載する．
+\fi
+
+\paragraph{回答欄：RVizの時系列画像(意図通りに動作しなかった場合も含む)}
+% 以下に本文を書く
+\ifdraft
+RVizの時系列画像を貼り付ける
+\fi
+
+\paragraph{回答欄：周辺状況の時系列画像(意図通りに動作しなかった場合も含む)}
+% 以下に本文を書く
+\ifdraft
+周辺状況の時系列画像を貼り付ける
+\fi
+
+\paragraph{回答欄：追加の説明用画像}
+% 以下に本文を書く
+\ifdraft
+説明に必要な追加画像があれば貼り付ける
+\fi
+
+\begin{itembox}[l]{(4)}
+動作結果について考察を行いレポートで報告せよ。読者に伝わりやすいよう、添付画像を適宜参照すること。
+\begin{itemize}
+    \item 意図通りに動いたとしたら，動作のどの部分からそう判断したかを文章で報告してください．
+    \item 意図通りに動かなかったとしてもその理由を考えて，理由や改善するための案などを文章で報告してください．
+    \item どちらの場合でもその他に気付いた点があれば文章で報告してください．
+\end{itemize}
+\end{itembox}
+
+\paragraph{回答欄：考察}
+% 以下に本文を書く
+\ifdraft
+詳しい考察を記載する。
+\fi
+
+\subsection{課題6-EX3}
+%Gazeboもしくは実機で実施，両方で実施した場合には両方の結果を記載する．
+\begin{itembox}[l]{(1)}
+発展課題6-EX2ではセンサ情報から棒(円筒状の物体)を検知しその近くに移動した後にアームを動作させて棒を倒した。本ロボットにはグリッパが付属している。せっかくなので、実際に棒(円筒状の物体)を把持して他の場所へ移動させたい。ただし、Gazeboを利用する場合は，棒の質量がデフォルトで1Kgとなるため100g程度に設定し直す。ついで、プログラムを作成し、レポートに貼り付けてください。
+\end{itembox}
+
+\paragraph{回答欄：プログラム}
+% 以下に本文を書く
+\ifdraft
+センサ情報から円筒状の物体を検知しその近くに移動し、その物体を倒すプログラムをリスト\ref{lst:movetocylinder2}に示す…
+\begin{lstlisting}[caption=コード,label=lst:movetocylinder2]
+...
+\end{lstlisting}
+\fi
+
+\begin{itembox}[l]{(2)}
+プログラム作成時のアイデアや目標(円筒状の物体を検知する、物体の近くに移動する、物体を把持する)を達成するための作戦，アルゴリズムについての説明をレポートで報告せよ。アルゴリズムが前提としている仮定(ロボットの初期位置から円筒状の物体の位置までは一直線で移動できるなど)があればそれを明示すること。フローチャートなどの画像を使うと伝わりやすい。レポートには適宜図などの説明資料を挿入し、それを参照しながら説明する文章を作成すること。
+\end{itembox}
+
+\paragraph{回答欄：アイデア，作戦についての説明}
+% 以下に本文を書く
+\ifdraft
+アイデアや作戦について図や画像を交えながら詳しく説明する．
+\fi
+
+\begin{itembox}[l]{(3)}
+作成したプログラムを実行し、その様子を報告せよ。なお、レポートには下記の情報を含めること。
+\begin{itemize}
+    \item 様子を説明する文章 (添付画像を適宜参照すると伝わりやすいです．説明しやすい状況となるよう添付する画像を選ぶと より伝わりやすいレポートとなります．)
+    \item 動作のRVizの画像と動作前の状況の画像 (シミュレーションならGazeboの画像、実機実験なら写真)を時系列で示す．
+    \item 意図通りに動作しなかった場合は，その状況が分かりやすい RVizの画像と周囲状況の画像 (シミュレーションならGazeboの画像，実機実験なら写真)
+\end{itemize}
+\end{itembox}
+
+\paragraph{回答欄：動作時の様子の説明}
+% 以下に本文を書く
+\ifdraft
+動作時の様子を説明する文章を記載する．
+\fi
+
+\paragraph{回答欄：RVizの時系列画像(意図通りに動作しなかった場合も含む)}
+% 以下に本文を書く
+\ifdraft
+RVizの時系列画像を貼り付ける
+\fi
+
+\paragraph{回答欄：周辺状況の時系列画像(意図通りに動作しなかった場合も含む)}
+% 以下に本文を書く
+\ifdraft
+周辺状況の時系列画像を貼り付ける
+\fi
+
+\paragraph{回答欄：追加の説明用画像}
+% 以下に本文を書く
+\ifdraft
+説明に必要な追加画像があれば貼り付ける
+\fi
+
+\begin{itembox}[l]{(4)}
+動作結果について考察を行いレポートで報告せよ。読者に伝わりやすいよう、添付画像を適宜参照すること。
+\begin{itemize}
+    \item 意図通りに動いたとしたら，動作のどの部分からそう判断したかを文章で報告してください．
+    \item 意図通りに動かなかったとしてもその理由を考えて，理由や改善するための案などを文章で報告してください．
+    \item どちらの場合でもその他に気付いた点があれば文章で報告してください．
+\end{itemize}
+\end{itembox}
+
+\paragraph{回答欄：考察}
+% 以下に本文を書く
+\ifdraft
+詳しい考察を記載する。
+\fi
+\end{document}
+
